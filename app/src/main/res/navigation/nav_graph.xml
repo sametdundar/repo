@@ -12,6 +12,20 @@
         android:label="fragment_repo_main"
         tools:layout="@layout/fragment_repo_main" >
 
+        <action
+            android:id="@+id/action_repoScreenFragment_to_repoDetailScreenFragment"
+            app:destination="@id/fragmentRepoDetail" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentRepoDetail"
+        android:name="com.sametdundar.findrepo.ui.fragment.repodetail.RepoDetailFragment"
+        android:label="fragment_repo_detail"
+        tools:layout="@layout/fragment_repo_detail">
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

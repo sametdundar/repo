@@ -1,7 +1,9 @@
 package com.sametdundar.findrepo.ui.fragment.repomain
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.LogUtils
 import com.github.nitrico.lastadapter.LastAdapter
 import com.github.nitrico.lastadapter.Type
@@ -52,14 +54,27 @@ class RepoMainFragment : BaseFragment<FragmentRepoMainBinding>() {
         ).map<RepoResponseItem>(Type<ItemRepoListBinding>(R.layout.item_repo_list).onBind { holder ->
             val data = holder.binding.item
             data?.let { item ->
-
+                if (holder.adapterPosition % 2 == 1)
+                    holder.binding.constraint.setBackgroundColor(
+                        ContextCompat.getColor(
+                            holder.binding.root.context,
+                            R.color.grey_new
+                        )
+                    )
+                else
+                    holder.binding.constraint.setBackgroundColor(
+                        ContextCompat.getColor(
+                            holder.binding.root.context,
+                            R.color.white_new
+                        )
+                    )
             }
         }.onClick {
-//                findNavController().navigate(
-//                    MainScreenFragmentDirections.actionMainScreenFragmentToMovieDetailScreen(
-//                        it.binding.item?.id ?: -1
-//                    )
-//                )
+            findNavController().navigate(
+                RepoMainFragmentDirections.actionRepoScreenFragmentToRepoDetailScreenFragment(
+                    it.binding.item?.id?:-1
+                )
+            )
 
         }).into(binding.recyclerView)
     }
