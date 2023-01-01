@@ -13,6 +13,7 @@ import com.sametdundar.findrepo.base.BaseFragment
 import com.sametdundar.findrepo.data.model.response.RepoResponseItem
 import com.sametdundar.findrepo.databinding.FragmentRepoMainBinding
 import com.sametdundar.findrepo.databinding.ItemRepoListBinding
+import com.sametdundar.findrepo.util.star.StarClassSingleton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,6 +69,12 @@ class RepoMainFragment : BaseFragment<FragmentRepoMainBinding>() {
                             R.color.white_new
                         )
                     )
+
+                if (StarClassSingleton.getInstance().isSelected(item)) {
+                    holder.binding.ivStar.setImageResource(R.drawable.star)
+                } else {
+                    holder.binding.ivStar.setImageResource(R.drawable.star_empty)
+                }
             }
         }.onClick {
             findNavController().navigate(

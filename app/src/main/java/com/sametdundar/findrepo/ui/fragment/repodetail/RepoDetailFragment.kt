@@ -6,6 +6,7 @@ import com.sametdundar.findrepo.R
 import com.sametdundar.findrepo.base.BaseFragment
 import com.sametdundar.findrepo.databinding.FragmentRepoDetailBinding
 import com.sametdundar.findrepo.util.loadImage
+import com.sametdundar.findrepo.util.star.StarClassSingleton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,11 +16,7 @@ class RepoDetailFragment : BaseFragment<FragmentRepoDetailBinding>() {
         fun newInstance() = RepoDetailFragment()
     }
 
-    private lateinit var viewModel: RepoDetailViewModel
-
     private val args : RepoDetailFragmentArgs by navArgs()
-
-
 
     override fun getLayoutId(): Int = R.layout.fragment_repo_detail
 
@@ -32,6 +29,21 @@ class RepoDetailFragment : BaseFragment<FragmentRepoDetailBinding>() {
             binding.tvFollowing.text = this.forks_count.toString()
             binding.tvFollowers.text = this.forks_count.toString()
             binding.tvUsername.text = this.name.toString()
+        }
+        if (StarClassSingleton.getInstance().isSelected(args.item!!)) {
+            binding.ivStar.setImageResource(R.drawable.star)
+        } else {
+            binding.ivStar.setImageResource(R.drawable.star_empty)
+        }
+
+        binding.ivStar.setOnClickListener {
+            if (StarClassSingleton.getInstance().isSelected(args.item!!)) {
+                StarClassSingleton.getInstance().remove(args.item!!)
+                binding.ivStar.setImageResource(R.drawable.star_empty)
+            } else {
+                StarClassSingleton.getInstance().add(args.item!!)
+                binding.ivStar.setImageResource(R.drawable.star)
+            }
         }
     }
 
