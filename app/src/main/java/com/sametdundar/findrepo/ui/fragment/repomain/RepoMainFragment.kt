@@ -1,32 +1,39 @@
 package com.sametdundar.findrepo.ui.fragment.repomain
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.blankj.utilcode.util.LogUtils
 import com.sametdundar.findrepo.R
+import com.sametdundar.findrepo.base.BaseFragment
+import com.sametdundar.findrepo.databinding.FragmentRepoMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class RepoMainFragment : Fragment() {
+@AndroidEntryPoint
+class RepoMainFragment : BaseFragment<FragmentRepoMainBinding>() {
 
     companion object {
         fun newInstance() = RepoMainFragment()
     }
 
-    private lateinit var viewModel: RepoMainViewModel
+    private val viewModel: RepoMainViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_repo_main, container, false)
+
+    override fun getLayoutId(): Int = R.layout.fragment_repo_main
+
+    override fun prepareView(savedInstanceState: Bundle?) {
+        binding.button.setOnClickListener {
+            showProgressDialog()
+            viewModel.fetchRepoRequest(binding.edittext.text.toString())
+        }
+
+        observeRepo()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RepoMainViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun observeRepo() {
+        viewModel.observeRepoResponse.observe(viewLifecycleOwner){
+            LogUtils.d("samsamsamsam",it)
+            hideProgressDialog()
+        }
     }
 
 }

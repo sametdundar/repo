@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface ServiceInterface {
 
-    @GET("users/{user}/repos.")
+    @GET("users/{user}/repos")
     fun fetchRepoList(
         @Path("user") user: String
     ) : Single<RepoResponse>
