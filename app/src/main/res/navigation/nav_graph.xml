@@ -24,8 +24,10 @@
         android:label="fragment_repo_detail"
         tools:layout="@layout/fragment_repo_detail">
         <argument
-            android:name="id"
-            app:argType="integer" />
+            android:name="item"
+            app:argType="com.sametdundar.findrepo.data.model.response.RepoResponseItem"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 </navigation>

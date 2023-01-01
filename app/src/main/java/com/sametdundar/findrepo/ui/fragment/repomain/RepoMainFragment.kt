@@ -72,7 +72,7 @@ class RepoMainFragment : BaseFragment<FragmentRepoMainBinding>() {
         }.onClick {
             findNavController().navigate(
                 RepoMainFragmentDirections.actionRepoScreenFragmentToRepoDetailScreenFragment(
-                    it.binding.item?.id?:-1
+                    it.binding.item
                 )
             )
 
