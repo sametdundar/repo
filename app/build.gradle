@@ -85,4 +85,7 @@ dependencies {
 
     // Android Util
     implementation "com.blankj:utilcodex:1.30.6"
+
+    //LastAdapter
+    implementation 'com.github.nitrico.lastadapter:lastadapter:2.3.0'
 }
